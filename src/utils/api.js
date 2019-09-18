@@ -8,3 +8,11 @@ export function getPokemons() {
       return data;
     })
 }
+
+export function getPokemonInfo(url) {
+  return fetch(url)
+    .then((res) => res.json())
+    .then((data) => {
+      return data;
+    }) 
+}
