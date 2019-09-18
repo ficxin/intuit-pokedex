@@ -1,4 +1,5 @@
 import React from 'react';
+import PokemonPreview from './PokemonPreview';
 import { getPokemons } from '../utils/api';
 
 function PokemonGrid({ results }) {
@@ -9,7 +10,10 @@ function PokemonGrid({ results }) {
 
         return (
           <li key={name}>
-            {name}
+            <PokemonPreview 
+              name={name}
+              infoUrl={url}
+            />
           </li>
         )
       })}
