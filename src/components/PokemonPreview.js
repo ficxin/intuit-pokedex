@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 import { getPokemonInfo } from '../utils/api';
 
 class PokemonPreview extends React.Component {
@@ -20,18 +21,27 @@ class PokemonPreview extends React.Component {
 
   render() {
     const { name } = this.props;
-    const { imageUrl } = this.state
+    const { imageUrl, pokemonInfo } = this.state
 
     return (
-      <div className="preview-card">
-        {imageUrl &&
-          <img
-            src={imageUrl}
-            alt={`${name}`}
-          />
+      <Link to={{
+        pathname: `${name}`,
+        state: {
+          pokemonInfo,
+          imageUrl,
+          name
         }
-        <p>{name}</p>
-      </div>
+      }}>
+        <div className="preview-card">
+          {imageUrl &&
+            <img
+              src={imageUrl}
+              alt={`${name}`}
+            />
+          }
+          <p>{name}</p>
+        </div>
+      </Link>
     )
   }
 }
