@@ -1,6 +1,15 @@
+@import url('https://fonts.googleapis.com/css?family=Ubuntu&display=swap');
+
 .pokemon-grid {
+  font-family: 'Ubuntu', sans-serif;
   list-style-type: none;
   padding: 0 12vw;
+
+  a {
+    text-decoration: none;
+    font-size: 1.2em;
+    font-weight: 500;
+  }
 
   li {
     display: inline-block;
@@ -19,5 +28,56 @@
     img {
       height: 150px;
     }
+  }
+}
+
+.pokemon-detail {
+  font-family: 'Ubuntu', sans-serif;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  margin: 5rem 0;
+
+  .pokemon-profile {
+    width: 230px;
+    padding: 0 3rem;
+    text-align: center;
+
+    h4 {
+      font-size: 1.2em;
+      text-transform: capitalize;
+      margin-top: 0;
+    }
+
+    img {
+      height: 160px;
+    }
+
+    form {
+      text-align: left;
+    }
+
+    p {
+      margin: 0;
+      padding-bottom: 0.4rem;
+      text-align: left;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+      text-transform: capitalize;
+      text-align: left;
+
+      li {
+        padding-right: 0.6rem;
+        display: inline-block;
+      }
+    }
+  }
+
+  .map-container {
+    position: relative;
+    width: 500px;
   }
 }
