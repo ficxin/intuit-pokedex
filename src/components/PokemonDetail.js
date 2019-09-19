@@ -1,10 +1,13 @@
 import React from 'react';
+import GoogleMapReact from 'google-map-react';
+
+const PokemonMarker = ({ imageUrl, name }) => <img src={imageUrl} alt={name} height={40}/>
 
 class PokemonDetail extends React.Component {
   render() {
     const { name, pokemonInfo, imageUrl } = this.props.location.state;
     const { height, weight, types, abilities } = pokemonInfo;
-    console.log(abilities)
+
     return (
       <div className="pokemon-detail">
         <div className="pokemon-profile">
@@ -12,10 +15,10 @@ class PokemonDetail extends React.Component {
             src={imageUrl}
             alt={name}
           />
-          <p>{name}</p>
+          <h4>{name}</h4>
           <ul>
-            <li key="height">Height {height}</li>
-            <li key="weight">Weight {weight}</li>
+            <li key="height">{`Height ${height}"`}</li>
+            <li key="weight">{`Weight ${weight} lbs`}</li>
           </ul>
           <form>
             <label htmlFor="inBag">In Bag</label>
@@ -40,7 +43,27 @@ class PokemonDetail extends React.Component {
           </ul>
         </div>
         <div className="map-container">
-          
+          <GoogleMapReact
+            apiKey="AIzaSyAhOD5VxBVAXs91jT3KZIXxd4MOZv4scl8"
+            defaultCenter={{
+              lat: 37.25,
+              lng: -122.15,
+            }}
+            defaultZoom={11}
+          >
+            <PokemonMarker
+              lat={37.28}
+              lng={-122.17}
+              imageUrl={imageUrl}
+              name={name}
+            />
+            <PokemonMarker
+              lat={37.25}
+              lng={-122.10}
+              imageUrl={imageUrl}
+              name={name}
+            />
+          </GoogleMapReact>
         </div>
       </div>
     )
