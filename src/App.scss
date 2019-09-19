@@ -1,5 +1,14 @@
 @import url('https://fonts.googleapis.com/css?family=Ubuntu&display=swap');
 
+.form-container {
+  text-align: center;
+
+  input {
+    padding: 0.2rem 0.4rem;
+    font-size: 1.2em;
+  }
+}
+
 .pokemon-grid {
   font-family: 'Ubuntu', sans-serif;
   list-style-type: none;
