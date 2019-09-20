@@ -2,8 +2,30 @@ import React from 'react';
 import PokemonPreview from './PokemonPreview';
 import { getPokemons } from '../utils/api';
 
+function PokemonNav({ onNavClick }) { 
+  return (
+    <ul className="pokemonNav">
+      <li
+        id="All"
+        key="all"
+        onClick={onNavClick}
+      >
+        All
+      </li>
+      <li
+        id="Bag"
+        key="bag"
+        onClick={onNavClick}
+        >
+        Bag
+      </li>
+    </ul>
+  )
+}
+
 class PokedexInput extends React.Component {
   handleChange = (ev) => {
+
     const query = ev.target.value;
     this.props.onChange(query);
   }
@@ -51,6 +73,8 @@ class Pokedex extends React.Component {
   }
 
   componentDidMount() {
+    const bag = window.localStorage.getItem("pokemonBag");
+
     getPokemons()
       .then(({ results }) => {
         this.setState({
@@ -58,6 +82,30 @@ class Pokedex extends React.Component {
           pokemons: results,
         });
       });
+    
+    this.setState({
+      bag
+    })
+  }
+
+  handleNavClick = (ev) => {
+    console.log("here")
+    const element = ev.target.id;
+    const { results, bag } = this.state
+
+    if (element === "All") {
+      this.setState({
+        pokemons: results,
+      })
+    } 
+
+    if (element === "Bag") {
+      const display =  results.filter(({ name }) => bag.includes(name))
+      this.setState({  
+        pokemons: display,  
+      })
+    }
+
   }
 
   handleSearch = (query) => {
@@ -74,6 +122,7 @@ class Pokedex extends React.Component {
     const { pokemons, query } = this.state;
     return (
       <React.Fragment>
+        <PokemonNav onNavClick={this.handleNavClick} />
         <PokedexInput onChange={this.handleSearch}/>
         {pokemons && <PokemonGrid pokemons={pokemons} query={query} />}
       </React.Fragment>

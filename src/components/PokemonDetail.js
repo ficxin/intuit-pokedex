@@ -4,6 +4,45 @@ import GoogleMapReact from 'google-map-react';
 const PokemonMarker = ({ imageUrl, name }) => <img src={imageUrl} alt={name} height={40}/>
 
 class PokemonDetail extends React.Component {
+  componentWillMount() {
+    const { name } = this.props.location.state
+    let checked = window.localStorage.getItem(name)
+
+    if (checked === null) {
+      window.localStorage.setItem(name, false)
+      this.setState({
+        checked: false,
+      })
+    } else {
+      this.setState({
+        checked: checked === "true",
+      })
+    }
+  }
+  
+  handleChange = (name) => {
+    window.localStorage.setItem(name, !this.state.checked)
+    const checked = window.localStorage.getItem(name) === "true";
+    
+    const bag = window.localStorage.getItem("pokemonBag")
+
+    if (checked) {
+      if (!bag) {
+        window.localStorage.setItem("pokemonBag", [name])
+      } else {
+        window.localStorage.setItem("pokemonBag", [bag, name])
+      }
+    }
+
+    if (!checked) {
+      window.localStorage.setItem("pokemonBag", [bag.replace(name, "")])
+    }
+
+    this.setState({
+      checked,
+    })
+  }
+
   render() {
     const { name, pokemonInfo, imageUrl } = this.props.location.state;
     const { height, weight, types, abilities } = pokemonInfo;
@@ -26,6 +65,8 @@ class PokemonDetail extends React.Component {
               type="checkbox" 
               id="inBag" 
               name="subscribe"
+              checked={this.state.checked}
+              onChange={() => this.handleChange(name)}
             />
           </form>
           <ul>

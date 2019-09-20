@@ -11,7 +11,7 @@ class PokemonPreview extends React.Component {
     getPokemonInfo(this.props.infoUrl)
       .then((pokemonInfo) => { 
         const { sprites } = pokemonInfo;
-        console.log('fetched')
+
         this.setState({
           pokemonInfo,
           imageUrl: sprites.front_default,
